@@ -1,67 +1,26 @@
-* Filename: divisiontable.cpp
-* Description:  asks the user to enter the size of the division
-table to generate.
-*/ 
+C++ program is designed to generate a division table based on a user-defined size and write the results to a file named results.dat. Here's a detailed breakdown of how the program works and its functionality:
 
-#include <iostream>
-#include <iomanip>
-#include <fstream> 
+Code Breakdown
+User Input:
 
-int main() {
-    int size;
-    // Asking the user to input the size of the division table
-    std::cout << "Enter division table size: ";
-    std::cin >> size; 
+The program prompts the user to enter the size of the division table (size).
+File Handling:
 
-    // Open file to write the output
-    std::ofstream file("results.dat");
+An output file named results.dat is opened to write the generated division table.
+The program checks if the file was opened successfully. If not, it prints an error message and returns with an error code.
+Input Validation:
 
-    // Check if file was opened successfully
-    if (!file.is_open()) {
-        std::cerr << "Failed to open file results.dat" << std::endl;
-        return 1;
-    }
+If the user enters a negative number, the program writes a message indicating that negative numbers are not allowed and exits.
+If the user enters zero, it simply writes a header for the division table and exits.
+Table Header:
 
-    // Check if the input is negative or zero
-    if (size < 0) {
-        file << "No Negative Numbers allowed!" << std::endl; 
-        file << "-- Your Custom Division Table --" << std::endl;
-        return 0; 
-    } 
-    else if (size == 0) { 
-        file << "-- Your Custom Division Table --" << std::endl;
-        return 0; 
-    }
+If the size is valid (greater than zero), the program generates the table's header, which includes numbers from 1 to size aligned under a divider.
+Divider Line:
 
-    // Displaying header
-    file << "-- Your Custom Division Table --" << std::endl;
-    
-    // The header with column numbers
-    file << "   |";
-    for (int i = 1; i <= size; ++i) {
-        file << std::setw(5) << i;
-    }
-    file << std::endl;
+A line of dashes is printed to separate the header from the division results.
+Division Values:
 
-    // Divider line
-    file << "----";
-    for (int i = 1; i < size; ++i) {
-        file << "-----"; 
-    }
-    file << "-----" << std::endl;
+A nested loop is used to calculate and print the division results. For each value of i (from 1 to size), it divides i by j (also from 1 to size) and formats the output to two decimal places.
+Closing the File:
 
-    // Displaying the division values
-    for (int i = 1; i <= size; ++i) {
-        file << std::setw(3) << i << "|";
-        for (int j = 1; j <= size; ++j) {
-            // 2 decimal places
-            file << std::setw(5) << std::fixed << std::setprecision(2) << (static_cast<double>(i) / j);
-        }
-        file << std::endl; 
-    }
-
-    // Close the file
-    file.close();
-
-    return 0;
-}
+Finally, the file is closed after all the data has been written.
